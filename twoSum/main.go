@@ -5,16 +5,11 @@ import (
 )
 
 func twoSum(nums []int, target int) []int {
-	smallerNums := make([]int, 0, len(nums))
-	// O(n)
-	for _, num := range nums {
-		if num < target {
-			smallerNums = append(smallerNums, num)
-		}
-	}
+	smallerNums := make([]int, len(nums))
+	copy(smallerNums, nums)
 	// O(n log n)
 	sort.Ints(smallerNums)
-	values := []int{-1, -1}
+	values := []int{0, 0}
 	i := 0
 	j := len(smallerNums) - 1
 	for i < j {
