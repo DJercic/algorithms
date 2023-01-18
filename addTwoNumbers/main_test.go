@@ -29,8 +29,8 @@ func TestCountDisjointIntervals(t *testing.T) {
 		list2 := transformToListNode(tc.num2)
 		result := addTwoNumbers(list1, list2)
 		// check the result against the expected result
-		if toNumber(result) != tc.expected {
-			t.Errorf("Error on test index [%v] Expected %d, got %d", idx, tc.expected, result)
+		if result.toNumber() != tc.expected {
+			t.Errorf("Error on test index [%v] Expected %d, got %d", idx, tc.expected, result.toNumber())
 		}
 	}
 }
@@ -40,11 +40,13 @@ func transformToListNode(value []int) *ListNode {
 	var previous *ListNode
 	for i := 0; i < len(value); i++ {
 		current := ListNode{Val: value[i]}
+		if head == nil {
+			head = &current
+		}
 		if previous != nil {
-			current.Next = previous
+			previous.Next = &current
 		}
 		previous = &current
-		head = &current
 	}
 	return head
 }
